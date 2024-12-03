@@ -53,4 +53,24 @@ public class LoginTests {
                 .body("error", is("Missing email or username"))
                 .statusCode(400);
     }
+
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with status code 200")
+    void MissingPasswordTest() {
+
+        String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"\"}";
+        // Arrange Act Assert
+        given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .body("error", is("Missing password"))
+                .statusCode(400);
+    }
 }
