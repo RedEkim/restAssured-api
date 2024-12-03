@@ -73,4 +73,23 @@ public class LoginTests {
                 .body("error", is("Missing password"))
                 .statusCode(400);
     }
+
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with bad JSON")
+    void unsuccessful1LoginTestWithBadJson() {
+
+        String authData = "}";
+        // Arrange Act Assert
+        given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(400);
+    }
 }
