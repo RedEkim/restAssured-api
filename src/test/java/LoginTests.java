@@ -56,7 +56,7 @@ public class LoginTests {
 
     @Test
     @Tag("Login")
-    @DisplayName("Login test with status code 200")
+    @DisplayName("Login test with status code 400 and Missing password")
     void MissingPasswordTest() {
 
         String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"\"}";
