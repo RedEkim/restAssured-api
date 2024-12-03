@@ -20,6 +20,7 @@ public class LoginTests {
     void successfulLoginTest() {
 
         String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}";
+        // Arrange Act Assert
         given()
                 .body(authData)
                 .contentType(JSON)
@@ -31,5 +32,25 @@ public class LoginTests {
                 .log().body()
                 .body("token", is("QpwL5tke4Pnpja7X4"))
                 .statusCode(200);
+    }
+
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with status code 400 and Missing email or usernam")
+    void MissingEmailOrUsernameTestStatusCode400() {
+
+        String authData = "{\"email\": \"\", \"password\": \"cityslicka\"}";
+        // Arrange Act Assert
+        given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .body("error", is("Missing email or username"))
+                .statusCode(400);
     }
 }
