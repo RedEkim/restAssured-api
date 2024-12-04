@@ -1,16 +1,16 @@
+package tests;
+
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.lang.module.Configuration;
-
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
-public class SwaggerTests {
+public class SwaggerTests extends TestBase {
     /*
     pet
     (POST) /pet/{petId}/uploadImage (uploads an image)
@@ -49,7 +49,10 @@ public class SwaggerTests {
                 .contentType(JSON)
                 .log().uri()
         .when()
-                .post("");
+                .post("/pet")
+        .then()
+                .log().status()
+                .log().body();
     }
 
 
