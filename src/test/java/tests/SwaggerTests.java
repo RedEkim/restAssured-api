@@ -1,7 +1,5 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,7 @@ public class SwaggerTests extends TestBase {
     @Test
     @Tag("Pet")
     @DisplayName("Add a new pet to the store")
-    void addANewPetToTheStore() {
+    public void addANewPetToTheStore() {
         String lion = "{\n" +
                 "  \"id\": 0,\n" +
                 "  \"category\": {\n" +
