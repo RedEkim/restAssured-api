@@ -188,7 +188,14 @@ public class SwaggerTests extends TestBase {
     @Tag("GET")
     @DisplayName("Returns pet inventories by status")
     void returnsPetInventories() {
-
+        given()
+                .log().uri()
+        .when()
+                .get("/store/inventory")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
     }
 
     /*
