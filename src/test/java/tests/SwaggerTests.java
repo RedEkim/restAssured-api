@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 
 public class SwaggerTests extends TestBase {
     /*
-    Pet
+    Pet (Everything about your Pets)
     +(POST) /pet/{petId}/uploadImage (uploads an image)
     +(POST) /pet (Add a new pet to the store)
     +(PUT) /pet (Update an existing pet)
@@ -176,11 +176,11 @@ public class SwaggerTests extends TestBase {
     }
 
     /*
-    Store
+    Store (Access to Petstore orders)
     +(GET) /store/inventory (Returns pet inventories by status)
     +(POST) /store/order (Place an order for a pet)
     +(GET) /store/order/{orderId} (Find purchase order by ID)
-    (DELETE) /store/order/{orderId} (Delete purchase order by ID)
+    +(DELETE) /store/order/{orderId} (Delete purchase order by ID)
     */
 
     @Test
@@ -253,16 +253,46 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
     }
+
     /*
-    User
-    (POST) /user/createWithList
-    (GET) /user/{username}
-    (PUT) /user/{username}
-    (DELETE) /user/{username}
-    (GET) /user/login
-    (GET) /user/logout
-    (POST) /user/createWithArray
-    (POST) /user
+    User (Operations about user)
+    (POST) /user/createWithList (Creates list of users with given input array)
+    (GET) /user/{username} (Get user by user name)
+    (PUT) /user/{username} (Updated user)
+    (DELETE) /user/{username} (Delete user)
+    (GET) /user/login (Logs user into the system)
+    (GET) /user/logout (Logs out current logged in user session)
+    (POST) /user/createWithArray (Creates list of users with given input array)
+    (POST) /user (Create user)
     */
 
+    @Test
+    @Tag("User")
+    @Tag("POST")
+    @DisplayName("Creates list of users with given input array")
+    void createListOfUsers() {
+
+        String listOfUsers = "[\n" +
+                "  {\n" +
+                "    \"id\": 777,\n" +
+                "    \"username\": \"testUserName\",\n" +
+                "    \"firstName\": \"testFirstName\",\n" +
+                "    \"lastName\": \"testLastName\",\n" +
+                "    \"email\": \"testmail@testmail.com\",\n" +
+                "    \"password\": \"qwertytest\",\n" +
+                "    \"phone\": \"+7999334422\",\n" +
+                "    \"userStatus\": 7\n" +
+                "  }\n" +
+                "]";
+        given()
+                .body(listOfUsers)
+                .contentType(JSON)
+                .log().uri()
+        .when()
+                .post("/user/createWithList")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
 }
