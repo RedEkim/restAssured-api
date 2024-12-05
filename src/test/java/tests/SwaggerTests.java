@@ -177,7 +177,7 @@ public class SwaggerTests extends TestBase {
 
     /*
     Store
-    (GET) /store/inventory (Returns pet inventories by status)
+    +(GET) /store/inventory (Returns pet inventories by status)
     (POST) /store/order (Place an order for a pet)
     (GET) /store/order/{orderId} (Find purchase order by ID)
     (DELETE) /store/order/{orderId} (Delete purchase order by ID)
@@ -192,6 +192,32 @@ public class SwaggerTests extends TestBase {
                 .log().uri()
         .when()
                 .get("/store/inventory")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("Store")
+    @Tag("POST")
+    @DisplayName("Place an order for a pet")
+    void placeAnOrderForAPet() {
+
+        String place = "{\n" +
+                "  \"id\": 7,\n" +
+                "  \"petId\": 878665454,\n" +
+                "  \"quantity\": 1,\n" +
+                "  \"shipDate\": \"2024-12-05T15:16:00.009Z\",\n" +
+                "  \"status\": \"placed\",\n" +
+                "  \"complete\": true\n" +
+                "}";
+        given()
+                .body(place)
+                .contentType(JSON)
+                .log().uri()
+        .when()
+                .post("/store/order")
         .then()
                 .log().status()
                 .log().body()
