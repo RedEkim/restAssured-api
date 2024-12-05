@@ -177,11 +177,19 @@ public class SwaggerTests extends TestBase {
 
     /*
     Store
-    (GET) /store/inventory
-    (POST) /store/order
-    (GET) /store/order/{orderId}
-    (DELETE) /store/order/{orderId}
+    (GET) /store/inventory (Returns pet inventories by status)
+    (POST) /store/order (Place an order for a pet)
+    (GET) /store/order/{orderId} (Find purchase order by ID)
+    (DELETE) /store/order/{orderId} (Delete purchase order by ID)
     */
+
+    @Test
+    @Tag("Store")
+    @Tag("GET")
+    @DisplayName("Returns pet inventories by status")
+    void returnsPetInventories() {
+
+    }
 
     /*
     User
