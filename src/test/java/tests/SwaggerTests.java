@@ -18,7 +18,7 @@ public class SwaggerTests extends TestBase {
     +(GET) /pet/findByStatus (Finds Pets by status)
     +(GET) /pet/{petId} (Find per by ID)
     +-(POST) /pet/{petId} (Updates a pet in the store with form data)
-    (DELETE) /pet/{petId} (Deletes a pet)
+    +(DELETE) /pet/{petId} (Deletes a pet)
     */
 
     @Test
