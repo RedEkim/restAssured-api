@@ -256,8 +256,8 @@ public class SwaggerTests extends TestBase {
 
     /*
     User (Operations about user)
-    (POST) /user/createWithList (Creates list of users with given input array)
-    (GET) /user/{username} (Get user by user name)
+    +(POST) /user/createWithList (Creates list of users with given input array)
+    +(GET) /user/{username} (Get user by user name)
     (PUT) /user/{username} (Updated user)
     (DELETE) /user/{username} (Delete user)
     (GET) /user/login (Logs user into the system)
@@ -310,5 +310,33 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
 
+    }
+
+    @Test
+    @Tag("User")
+    @Tag("PUT")
+    @DisplayName("Updated user")
+    void updatedUser() {
+
+        String newDataUser = "{\n" +
+                "  \"id\": 777,\n" +
+                "  \"username\": \"testUserName\",\n" +
+                "  \"firstName\": \"testFirstName\",\n" +
+                "  \"lastName\": \"testLastName\",\n" +
+                "  \"email\": \"testmail@testmail.com\",\n" +
+                "  \"password\": \"qwertytest123\",\n" +
+                "  \"phone\": \"+7999334422\",\n" +
+                "  \"userStatus\": 7\n" +
+                "}";
+        given()
+                .body(newDataUser)
+                .contentType(JSON)
+                .log().uri()
+        .when()
+                .put("/user/testUserName")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
     }
 }
