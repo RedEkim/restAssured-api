@@ -179,7 +179,7 @@ public class SwaggerTests extends TestBase {
     Store
     +(GET) /store/inventory (Returns pet inventories by status)
     +(POST) /store/order (Place an order for a pet)
-    (GET) /store/order/{orderId} (Find purchase order by ID)
+    +(GET) /store/order/{orderId} (Find purchase order by ID)
     (DELETE) /store/order/{orderId} (Delete purchase order by ID)
     */
 
@@ -233,6 +233,21 @@ public class SwaggerTests extends TestBase {
                 .log().uri()
         .when()
                 .get("/store/order/7")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("Store")
+    @Tag("DELETE")
+    @DisplayName("Delete purchase order by ID")
+    void deletePurchaseOrderById() {
+        given()
+                .log().uri()
+        .when()
+                .delete("/store/order/7")
         .then()
                 .log().status()
                 .log().body()
