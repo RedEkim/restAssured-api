@@ -12,10 +12,10 @@ public class SwaggerTests extends TestBase {
     /*
     pet
     (POST) /pet/{petId}/uploadImage (uploads an image)
-    (POST) /pet (Add a new pet to the store)
+    +(POST) /pet (Add a new pet to the store)
     (PUT) /pet (Update an existing pet)
     (GET) /pet/findByStatus (Finds Pets by status)
-    (GET) /pet/{petId} (Find  per by ID)
+    +(GET) /pet/{petId} (Find per by ID)
     (POST) /pet/{petId} (Updates a pet in the store with form data)
     (DELETE) /pet/{petId} (Deletes a pet)
     */
@@ -23,25 +23,26 @@ public class SwaggerTests extends TestBase {
     @Test
     @Tag("Pet")
     @DisplayName("Add a new pet to the store")
-    public void addANewPetToTheStore() {
+    void addANewPetToTheStore() {
         String lion = "{\n" +
-                "  \"id\": 0,\n" +
+                "  \"id\": 878665454,\n" +
                 "  \"category\": {\n" +
                 "    \"id\": 0,\n" +
-                "    \"name\": \"string\"\n" +
+                "    \"name\": \"dog\"\n" +
                 "  },\n" +
-                "  \"name\": \"doggie\",\n" +
+                "  \"name\": \"lion\",\n" +
                 "  \"photoUrls\": [\n" +
                 "    \"string\"\n" +
                 "  ],\n" +
                 "  \"tags\": [\n" +
                 "    {\n" +
-                "      \"id\": 0,\n" +
-                "      \"name\": \"string\"\n" +
+                "      \"id\": 777,\n" +
+                "      \"name\": \"runner\"\n" +
                 "    }\n" +
                 "  ],\n" +
                 "  \"status\": \"available\"\n" +
                 "}";
+
         given()
                 .body(lion)
                 .contentType(JSON)
@@ -50,7 +51,22 @@ public class SwaggerTests extends TestBase {
                 .post("/pet")
         .then()
                 .log().status()
-                .log().body();
+                .log().body()
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("Pet")
+    @DisplayName("Find pet by ID")
+    void getPetById() {
+        given()
+                .log().uri()
+        .when()
+                .get("/pet/878665454")
+        .then()
+                .log().status()
+                .log().body()
+                .body("name",is("lion"));
     }
 
 
