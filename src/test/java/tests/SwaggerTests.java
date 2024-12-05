@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.http.ContentType.MULTIPART;
@@ -14,12 +12,12 @@ import static org.hamcrest.Matchers.is;
 public class SwaggerTests extends TestBase {
     /*
     Pet
-    +-(POST) /pet/{petId}/uploadImage (uploads an image)
+    +(POST) /pet/{petId}/uploadImage (uploads an image)
     +(POST) /pet (Add a new pet to the store)
     +(PUT) /pet (Update an existing pet)
     +(GET) /pet/findByStatus (Finds Pets by status)
     +(GET) /pet/{petId} (Find per by ID)
-    (POST) /pet/{petId} (Updates a pet in the store with form data)
+    +-(POST) /pet/{petId} (Updates a pet in the store with form data)
     (DELETE) /pet/{petId} (Deletes a pet)
     */
 
@@ -64,7 +62,7 @@ public class SwaggerTests extends TestBase {
     @Tag("POST")
     @DisplayName("Uploads an image")
     void uploadAnImageToPet() {
-        //File Hasbik = new File("src/test/java/resources/hasbik.gif");
+
         given()
                 .multiPart("file", "src/test/java/resources/hasbik.gif")
                 .multiPart("additionalMetadata", "for example")
@@ -148,30 +146,12 @@ public class SwaggerTests extends TestBase {
     @Tag("POST")
     @DisplayName("Updates a pet in the store with form data")
     void updatesAPetInTheStore() {
-        String lion = "{\n" +
-                "  \"id\": 878665454,\n" +
-                "  \"category\": {\n" +
-                "    \"id\": 0,\n" +
-                "    \"name\": \"dog\"\n" +
-                "  },\n" +
-                "  \"name\": \"lion\",\n" +
-                "  \"photoUrls\": [\n" +
-                "    \"string\"\n" +
-                "  ],\n" +
-                "  \"tags\": [\n" +
-                "    {\n" +
-                "      \"id\": 778,\n" +
-                "      \"name\": \"puppy\"\n" +
-                "    }\n" +
-                "  ],\n" +
-                "  \"status\": \"available\"\n" +
-                "}";
 
         given()
-                .body(lion)
                 .contentType(MULTIPART)
+                .multiPart("name", "Lion")
+                .multiPart("status", "update")
                 .log().uri()
-                .log().method()
         .when()
                 .post("/pet/878665454")
         .then()
@@ -180,6 +160,7 @@ public class SwaggerTests extends TestBase {
                 .statusCode(200);
     }
 
+    (DELETE) /pet/{petId} (Deletes a pet)
 
     /*
     Store
