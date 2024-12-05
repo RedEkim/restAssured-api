@@ -14,7 +14,7 @@ public class SwaggerTests extends TestBase {
     (POST) /pet/{petId}/uploadImage (uploads an image)
     +(POST) /pet (Add a new pet to the store)
     (PUT) /pet (Update an existing pet)
-    (GET) /pet/findByStatus (Finds Pets by status)
+    +(GET) /pet/findByStatus (Finds Pets by status)
     +(GET) /pet/{petId} (Find per by ID)
     (POST) /pet/{petId} (Updates a pet in the store with form data)
     (DELETE) /pet/{petId} (Deletes a pet)
@@ -77,6 +77,41 @@ public class SwaggerTests extends TestBase {
                 .log().uri()
         .when()
                 .get("/pet/findByStatus?status=available")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("Pet")
+    @DisplayName("Update an existing pet")
+    void updatePet() {
+        String lion = "{\n" +
+                "  \"id\": 878665454,\n" +
+                "  \"category\": {\n" +
+                "    \"id\": 0,\n" +
+                "    \"name\": \"dog\"\n" +
+                "  },\n" +
+                "  \"name\": \"lion\",\n" +
+                "  \"photoUrls\": [\n" +
+                "    \"string\"\n" +
+                "  ],\n" +
+                "  \"tags\": [\n" +
+                "    {\n" +
+                "      \"id\": 778,\n" +
+                "      \"name\": \"puppy\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"status\": \"available\"\n" +
+                "}";
+
+        given()
+                .body(lion)
+                .contentType(JSON)
+                .log().uri()
+        .when()
+                .post("/pet")
         .then()
                 .log().status()
                 .log().body()
