@@ -160,7 +160,21 @@ public class SwaggerTests extends TestBase {
                 .statusCode(200);
     }
 
-    (DELETE) /pet/{petId} (Deletes a pet)
+    @Test
+    @Tag("Pet")
+    @Tag("DELETE")
+    @DisplayName("Deletes a pet")
+    void deletesAPet() {
+        given()
+                .log().uri()
+                .log().method()
+        .when()
+                .delete("/pet/878665454")
+        .then()
+                .log().status()
+                .statusCode(200);
+
+    }
 
     /*
     Store
