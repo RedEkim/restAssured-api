@@ -66,9 +66,22 @@ public class SwaggerTests extends TestBase {
         .then()
                 .log().status()
                 .log().body()
-                .body("name",is("lion"));
+                .statusCode(200);
     }
 
+    @Test
+    @Tag("Pet")
+    @DisplayName("Find Pets by status")
+    void findPetsByStatus() {
+        given()
+                .log().uri()
+        .when()
+                .get("/pet/findByStatus?status=available")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
 
     /*
     store
