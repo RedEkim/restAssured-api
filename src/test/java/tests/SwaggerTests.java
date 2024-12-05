@@ -295,4 +295,20 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
     }
+
+    @Test
+    @Tag("User")
+    @Tag("GET")
+    @DisplayName("Get user by user name")
+    void getUserByUserName() {
+        given()
+                .log().uri()
+        .when()
+                .get("/user/testUserName")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+
+    }
 }
