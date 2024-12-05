@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
-import static io.restassured.http.ContentType.MULTIPART;
+import static io.restassured.http.ContentType.*;
 import static org.hamcrest.Matchers.is;
 
 public class SwaggerTests extends TestBase {
@@ -17,7 +16,7 @@ public class SwaggerTests extends TestBase {
     +(PUT) /pet (Update an existing pet)
     +(GET) /pet/findByStatus (Finds Pets by status)
     +(GET) /pet/{petId} (Find per by ID)
-    +-(POST) /pet/{petId} (Updates a pet in the store with form data)
+    +(POST) /pet/{petId} (Updates a pet in the store with form data)
     +(DELETE) /pet/{petId} (Deletes a pet)
     */
 
@@ -148,9 +147,9 @@ public class SwaggerTests extends TestBase {
     void updatesAPetInTheStore() {
 
         given()
-                .contentType(MULTIPART)
-                .multiPart("name", "Lion")
-                .multiPart("status", "update")
+                .contentType(URLENC)
+                .formParam("name", "Lion")
+                .formParam("status","update")
                 .log().uri()
         .when()
                 .post("/pet/878665454")
