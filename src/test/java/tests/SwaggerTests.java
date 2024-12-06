@@ -259,7 +259,7 @@ public class SwaggerTests extends TestBase {
     +(POST) /user/createWithList (Creates list of users with given input array)
     +(GET) /user/{username} (Get user by user name)
     +(PUT) /user/{username} (Updated user)
-    (DELETE) /user/{username} (Delete user)
+    +(DELETE) /user/{username} (Delete user)
     (GET) /user/login (Logs user into the system)
     (GET) /user/logout (Logs out current logged in user session)
     (POST) /user/createWithArray (Creates list of users with given input array)
@@ -339,4 +339,35 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
     }
+
+    @Test
+    @Tag("User")
+    @Tag("DELETE")
+    @DisplayName("Delete user")
+    void deleteUser() {
+        given()
+                .log().uri()
+        .when()
+                .delete("/user/testUserName")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("User")
+    @Tag("GET")
+    @DisplayName("Logs user into the system")
+    void getLogUserIntoTheSystem() {
+        given()
+                .log().uri()
+        .when()
+                .get("/user/login?username=testUserName&password=qwertytest123")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
+
 }
