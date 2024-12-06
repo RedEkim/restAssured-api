@@ -262,7 +262,7 @@ public class SwaggerTests extends TestBase {
     +(DELETE) /user/{username} (Delete user)
     +(GET) /user/login (Logs user into the system)
     +(GET) /user/logout (Logs out current logged in user session)
-    (POST) /user/createWithArray (Creates list of users with given input array)
+    +(POST) /user/createWithArray (Creates list of users with given input array)
     (POST) /user (Create user)
     */
 
@@ -384,4 +384,36 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
     }
+
+    @Test
+    @Tag("User")
+    @Tag("POST")
+    @DisplayName("Creates list of users with given input array")
+    void createsListOfUsers() {
+
+        String listOfUsers = "[\n" +
+                "  {\n" +
+                "    \"id\": 9897685,\n" +
+                "    \"username\": \"usver\",\n" +
+                "    \"firstName\": \"firstN\",\n" +
+                "    \"lastName\": \"lastN\",\n" +
+                "    \"email\": \"string@string.com\",\n" +
+                "    \"password\": \"string3524\",\n" +
+                "    \"phone\": \"+7999355266\",\n" +
+                "    \"userStatus\": 98754\n" +
+                "  }\n" +
+                "]";
+        given()
+                .body(listOfUsers)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("/user/createWithArray")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+
+    }
+
 }
