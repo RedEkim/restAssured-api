@@ -260,8 +260,8 @@ public class SwaggerTests extends TestBase {
     +(GET) /user/{username} (Get user by user name)
     +(PUT) /user/{username} (Updated user)
     +(DELETE) /user/{username} (Delete user)
-    (GET) /user/login (Logs user into the system)
-    (GET) /user/logout (Logs out current logged in user session)
+    +(GET) /user/login (Logs user into the system)
+    +(GET) /user/logout (Logs out current logged in user session)
     (POST) /user/createWithArray (Creates list of users with given input array)
     (POST) /user (Create user)
     */
@@ -370,4 +370,18 @@ public class SwaggerTests extends TestBase {
                 .statusCode(200);
     }
 
+    @Test
+    @Tag("User")
+    @Tag("GET")
+    @DisplayName("Logs out current logged in user session")
+    void logOutUnderUser() {
+        given()
+                .log().uri()
+        .when()
+                .get("/user/logout")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
+    }
 }
