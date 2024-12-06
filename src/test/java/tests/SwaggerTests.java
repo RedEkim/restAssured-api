@@ -263,7 +263,7 @@ public class SwaggerTests extends TestBase {
     +(GET) /user/login (Logs user into the system)
     +(GET) /user/logout (Logs out current logged in user session)
     +(POST) /user/createWithArray (Creates list of users with given input array)
-    (POST) /user (Create user)
+    +(POST) /user (Create user)
     */
 
     @Test
@@ -414,6 +414,34 @@ public class SwaggerTests extends TestBase {
                 .log().body()
                 .statusCode(200);
 
+    }
+
+    @Test
+    @Tag("User")
+    @Tag("POST")
+    @DisplayName("Create user")
+    void createUser() {
+
+        String newUser = "{\n" +
+                "  \"id\": 90876,\n" +
+                "  \"username\": \"BirdMan\",\n" +
+                "  \"firstName\": \"Bird\",\n" +
+                "  \"lastName\": \"Man\",\n" +
+                "  \"email\": \"string@bird.com\",\n" +
+                "  \"password\": \"qwerty123\",\n" +
+                "  \"phone\": \"+94445599444\",\n" +
+                "  \"userStatus\": 532\n" +
+                "}";
+        given()
+                .body(newUser)
+                .contentType(JSON)
+                .log().uri()
+        .when()
+                .post("/user")
+        .then()
+                .log().status()
+                .log().body()
+                .statusCode(200);
     }
 
 }
