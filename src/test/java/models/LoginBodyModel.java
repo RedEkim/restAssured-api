@@ -2,7 +2,6 @@ package models;
 
 public class LoginBodyModel {
 
-    //        String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}";
     String email, password;
 
     public String getPassword() {
