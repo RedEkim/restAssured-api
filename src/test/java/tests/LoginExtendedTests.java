@@ -1,6 +1,7 @@
 package tests;
 
 import models.LoginBodyModel;
+import models.LoginResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginExtendedTests {
     /*
@@ -48,18 +50,18 @@ public class LoginExtendedTests {
         authData.setEmail("eve.holt@reqres.in");
         authData.setPassword("cityslicka");
 
-        // Arrange Act Assert
-        given()
+        LoginResponseModel response = given()
                 .body(authData)
                 .contentType(JSON)
                 .log().uri()
-                .when()
+        .when()
                 .post("https://reqres.in/api/login")
-                .then()
+        .then()
                 .log().status()
                 .log().body()
-                .body("token", is("QpwL5tke4Pnpja7X4"))
-                .statusCode(200);
+                .statusCode(200)
+                .extract().as(LoginResponseModel.class);
+        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
     }
 
 }
