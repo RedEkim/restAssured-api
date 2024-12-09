@@ -44,8 +44,6 @@ public class LoginExtendedTests {
     @DisplayName("Login test with status code 200")
     void successfulLoginTest() {
 
-//        String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}";
-
         LoginBodyModel authData = new LoginBodyModel();
         authData.setEmail("eve.holt@reqres.in");
         authData.setPassword("cityslicka");
