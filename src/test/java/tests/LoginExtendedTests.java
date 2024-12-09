@@ -19,7 +19,7 @@ public class LoginExtendedTests {
     @Test
     @Tag("Login")
     @DisplayName("Login test with status code 200")
-    void successfulLoginTest() {
+    void successfulLoginBadPracticeTest() {
 
         String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}";
         // Arrange Act Assert
@@ -30,6 +30,26 @@ public class LoginExtendedTests {
         .when()
                 .post("https://reqres.in/api/login")
         .then()
+                .log().status()
+                .log().body()
+                .body("token", is("QpwL5tke4Pnpja7X4"))
+                .statusCode(200);
+    }
+
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with status code 200")
+    void successfulLoginTest() {
+
+        String authData = "{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}";
+        // Arrange Act Assert
+        given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
                 .log().status()
                 .log().body()
                 .body("token", is("QpwL5tke4Pnpja7X4"))
