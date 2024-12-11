@@ -1,7 +1,7 @@
 package tests;
 
-import models.LoginBodyModel;
-import models.LoginResponseModel;
+import models.pojo.LoginBodyModel;
+import models.pojo.LoginResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

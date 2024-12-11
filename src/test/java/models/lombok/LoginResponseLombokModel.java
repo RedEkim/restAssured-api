@@ -1,6 +1,6 @@
-package models;
+package models.lombok;
 
-public class LoginResponseModel {
+public class LoginResponseLombokModel {
 
 
     String token;
