@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import models.lombok.LoginBodyLombokModel;
 import models.lombok.LoginResponseLombokModel;
 import models.pojo.LoginBodyModel;
@@ -93,4 +94,29 @@ public class LoginExtendedTests {
         assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
     }
 
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with status code 200")
+    void successfulLoginAllureTest() {
+
+        LoginBodyLombokModel authData = new LoginBodyLombokModel();
+        authData.setEmail("eve.holt@reqres.in");
+        authData.setPassword("cityslicka");
+
+        LoginResponseLombokModel response = given()
+                .filter(new AllureRestAssured())
+                .log().uri()
+                .log().body()
+                .log().headers()
+                .body(authData)
+                .contentType(JSON)
+            .when()
+                .post("https://reqres.in/api/login")
+            .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .extract().as(LoginResponseLombokModel.class);
+        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
+    }
 }
