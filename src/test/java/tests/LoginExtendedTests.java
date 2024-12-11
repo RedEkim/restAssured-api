@@ -1,5 +1,7 @@
 package tests;
 
+import models.lombok.LoginBodyLombokModel;
+import models.lombok.LoginResponseLombokModel;
 import models.pojo.LoginBodyModel;
 import models.pojo.LoginResponseModel;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +44,7 @@ public class LoginExtendedTests {
     @Test
     @Tag("Login")
     @DisplayName("Login test with status code 200")
-    void successfulLoginTest() {
+    void successfulLoginPojoTest() {
 
         LoginBodyModel authData = new LoginBodyModel();
         authData.setEmail("eve.holt@reqres.in");
@@ -59,6 +61,29 @@ public class LoginExtendedTests {
                 .log().body()
                 .statusCode(200)
                 .extract().as(LoginResponseModel.class);
+        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
+    }
+
+    @Test
+    @Tag("Login")
+    @DisplayName("Login test with status code 200")
+    void successfulLoginLombokTest() {
+
+        LoginBodyLombokModel authData = new LoginBodyLombokModel();
+        authData.setEmail("eve.holt@reqres.in");
+        authData.setPassword("cityslicka");
+
+        LoginResponseLombokModel response = given()
+                .body(authData)
+                .contentType(JSON)
+                .log().uri()
+                .when()
+                .post("https://reqres.in/api/login")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .extract().as(LoginResponseLombokModel.class);
         assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
     }
 
