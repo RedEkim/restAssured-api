@@ -32,6 +32,8 @@ public class LoginExtendedTests {
                 .body(authData)
                 .contentType(JSON)
                 .log().uri()
+                .log().body()
+                .log().headers()
         .when()
                 .post("https://reqres.in/api/login")
         .then()
