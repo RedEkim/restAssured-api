@@ -47,3 +47,21 @@ tasks.withType(Test) {
         }
     }
 }
+
+task store_test(type: Test) {
+    useJUnitPlatform{
+        includeTags("Store")
+    }
+}
+
+task pet_test(type: Test) {
+    useJUnitPlatform{
+        includeTags("Pet")
+    }
+}
+
+task user_test(type: Test) {
+    useJUnitPlatform{
+        includeTags("User")
+    }
+}
