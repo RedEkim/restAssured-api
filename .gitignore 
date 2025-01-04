@@ -14,3 +14,7 @@ build/
 
 ### Logs ###
 *.log
+
+### configs
+config.json
+draft.txt
